@@ -80,4 +80,4 @@ document.addEventListener("keypress", (event) => {
         view_coordsX.innerHTML = `<b>X:</b> -${controls.speedN++}deg`;
     }
 })
-// Valores coordenadas
+// Interactions
