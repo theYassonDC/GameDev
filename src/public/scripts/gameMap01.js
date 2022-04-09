@@ -12,34 +12,40 @@ const button_reset = document.querySelector('#btn_none');
 const button_4 = document.querySelector('#btn_abajo');
 
 // Events botones
+let speed = controls.speed;
+let speedNegative = controls.speedN
+const interactions = (btn, speed, dim, coords) =>{
+    document.addEventListener("click", (event) => {
+        if (event.srcElement === btn){
+            caja.style.transform = `rotate${dim}(${controls.speed++}deg)`;
+            caja.style.transition = `all 1.2s`;
+            let valueY = speed++;
+            coords.innerHTML = `<b>${dim}:</b> ${valueY}deg`;
+        }
+    });
+}
+const interactionsNegative = (btn, Nspeed, dim, coords) =>{
+    document.addEventListener("click", (event) => {
+        if(event.srcElement === btn){
+            caja.style.transform = `rotate${dim}(-${Nspeed++}deg)`;
+            caja.style.transition = `all 2.2s`;
+            coords.innerHTML = `<b>${dim}:</b> -${Nspeed}deg`;
+        };
+    });
+}
+// Buttons interactions 
+interactions(button_1, speed, "Y", view_coordsY);
+interactions(button_4, speed, "X", view_coordsX)
+interactionsNegative(button_2, speedNegative, "Y", view_coordsY);
+interactionsNegative(button_3, speedNegative, "X", view_coordsX);
 document.addEventListener("click", (event) => {
-    if (event.srcElement === button_1) {
-        caja.style.transform = `rotateY(${controls.speed++}deg)`;
-        caja.style.transition = `all 1.2s`;
-        let valueY = controls.speed++;
-        view_coordsY.innerHTML = `<b>Y:</b> ${valueY}deg`;
-    };
-    if(event.srcElement === button_2){
-        caja.style.transform = `rotateY(-${controls.speedN++}deg)`;
-        caja.style.transition = `all 2.2s`;
-        view_coordsY.innerHTML = `<b>Y:</b> -${controls.speedN++}deg`;
-    };
-    if(event.srcElement === button_3){
-        caja.style.transform = `rotateX(-${controls.speedN++}deg)`;
-        caja.style.transition = `all 2.2s`;
-        view_coordsX.innerHTML = `<b>Y:</b> ${controls.speedN++}deg`;
-    }
-    if(event.srcElement === button_4){
-        caja.style.transform = `rotateX(${controls.speed++}deg)`;
-        caja.style.transition = `all 2.2s`;
-        view_coordsX.innerHTML = `<b>X:</b> -${controls.speed++}deg`;
-    }
     if (event.srcElement === button_reset) {
         caja.style.transform = `rotateY(${controls.speed = 0}deg)`;
         view_coordsY.innerHTML = `<b>Y:</b> 0deg`;
         view_coordsX.innerHTML = `<b>X:</b> 0deg`;
     };
 });
+
 // Events keyboards
 document.addEventListener("keypress",(event)=>{
     if(event.key === "e"){
@@ -80,4 +86,3 @@ document.addEventListener("keypress", (event) => {
         view_coordsX.innerHTML = `<b>X:</b> -${controls.speedN++}deg`;
     }
 })
-// Interactions
